@@ -1,0 +1,60 @@
+{
+  "name": "mullvad-vpn-rebuild",
+  "version": "1.0.0",
+  "description": "Open-source Mullvad VPN app rebuilt from scratch with React Native",
+  "main": "index.js",
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "clean": "react-native clean",
+    "build:android": "cd android && ./gradlew assembleRelease",
+    "build:ios": "cd ios && xcodebuild -workspace MullvadVPN.xcworkspace -scheme MullvadVPN -configuration Release"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-native": "^0.73.0",
+    "@react-navigation/native": "^6.1.0",
+    "@react-navigation/native-stack": "^6.9.0",
+    "@react-navigation/bottom-tabs": "^6.5.0",
+    "react-native-screens": "^3.29.0",
+    "react-native-safe-area-context": "^4.8.0",
+    "zustand": "^4.5.0",
+    "react-native-encrypted-storage": "^4.0.3",
+    "react-native-svg": "^14.1.0",
+    "react-native-reanimated": "^3.6.0",
+    "react-native-gesture-handler": "^2.14.0",
+    "react-native-linear-gradient": "^2.8.3",
+    "react-native-device-info": "^10.12.0",
+    "@react-native-async-storage/async-storage": "^1.21.0",
+    "tweetnacl": "^1.0.3",
+    "base64-js": "^1.5.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.73.0",
+    "typescript": "^5.3.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.56.0",
+    "jest": "^29.7.0",
+    "@testing-library/react-native": "^12.4.0",
+    "ts-jest": "^29.1.0",
+    "metro-react-native-babel-preset": "^0.77.0",
+    "react-test-renderer": "^18.2.0",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.23.0",
+    "@babel/runtime": "^7.23.0"
+  },
+  "jest": {
+    "preset": "react-native",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
+    "testPathIgnorePatterns": ["/node_modules/", "/android/", "/ios/"]
+  }
+}
