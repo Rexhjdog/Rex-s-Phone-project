@@ -16,6 +16,7 @@ import { ServerListScreen } from '../screens/ServerListScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
 import { AccountScreen } from '../screens/AccountScreen';
 import { SplitTunnelScreen } from '../screens/SplitTunnelScreen';
+import { FaceTimeScreen } from '../screens/FaceTimeScreen';
 import { Colors } from '../theme/colors';
 import { Typography } from '../theme/typography';
 import { Spacing } from '../theme/spacing';
@@ -30,10 +31,12 @@ export type RootStackParamList = {
   VpnSettings: undefined;
   DnsSettings: undefined;
   About: undefined;
+  FaceTimeCall: { link?: string } | undefined;
 };
 
 export type MainTabParamList = {
   Connect: undefined;
+  FaceTime: undefined;
   Settings: undefined;
 };
 
@@ -99,6 +102,21 @@ const MainTabs: React.FC<{
             onNavigateToAccount={() => navigation.navigate('Account')}
             onConnect={onConnect}
             onDisconnect={onDisconnect}
+          />
+        )}
+      </Tab.Screen>
+      <Tab.Screen
+        name="FaceTime"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon label="FaceTime" focused={focused} />
+          ),
+          tabBarLabel: () => null,
+        }}
+      >
+        {() => (
+          <FaceTimeScreen
+            onBack={() => navigation.navigate('Connect')}
           />
         )}
       </Tab.Screen>
@@ -235,6 +253,14 @@ export const AppNavigator: React.FC<AppNavigatorProps> = ({
             <Stack.Screen name="SplitTunnel">
               {({ navigation }) => (
                 <SplitTunnelScreen onBack={() => navigation.goBack()} />
+              )}
+            </Stack.Screen>
+            <Stack.Screen name="FaceTimeCall">
+              {({ navigation, route }) => (
+                <FaceTimeScreen
+                  onBack={() => navigation.goBack()}
+                  initialLink={route.params?.link}
+                />
               )}
             </Stack.Screen>
           </>
