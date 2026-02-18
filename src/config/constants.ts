@@ -47,3 +47,41 @@ export const APP_LINKS = {
   faq: 'https://mullvad.net/en/help',
   github: 'https://github.com/mullvad/mullvadvpn-app',
 };
+
+// ─── FaceTime Link Support ────────────────────────────────────────────────
+
+export const FACETIME_LINK_DOMAIN = 'facetime.apple.com';
+export const FACETIME_LINK_PREFIX = `https://${FACETIME_LINK_DOMAIN}/join`;
+
+export const FACETIME_WEBRTC_CONFIG = {
+  iceServers: [
+    { urls: 'stun:stun.l.google.com:19302' },
+    { urls: 'stun:stun1.l.google.com:19302' },
+    { urls: 'stun:stun2.l.google.com:19302' },
+    { urls: 'stun:stun3.l.google.com:19302' },
+    { urls: 'stun:stun4.l.google.com:19302' },
+  ],
+  iceTransportPolicy: 'all' as const,
+  bundlePolicy: 'max-bundle' as const,
+  sdpSemantics: 'unified-plan' as const,
+};
+
+export const FACETIME_MEDIA_DEFAULTS = {
+  audio: {
+    enabled: true,
+    echoCancellation: true,
+    noiseSuppression: true,
+    autoGainControl: true,
+  },
+  video: {
+    enabled: true,
+    width: 1280,
+    height: 720,
+    frameRate: 30,
+    facingMode: 'user' as const,
+  },
+};
+
+export const FACETIME_CALL_TIMEOUT = 60000; // 60 seconds to join
+export const FACETIME_RECONNECT_ATTEMPTS = 3;
+export const FACETIME_RECONNECT_DELAY = 2000; // ms

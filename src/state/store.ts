@@ -24,6 +24,12 @@ import {
   RelaySelectionMode,
 } from '../types/server';
 import { AppSettings, SplitTunnelingConfig, SplitTunnelApp } from '../types';
+import {
+  FaceTimeCallStatus,
+  FaceTimeCallState,
+  FaceTimeMediaType,
+  CameraPosition,
+} from '../types/facetime';
 import { TunnelStats } from '../services/vpn/TunnelManager';
 
 // ─── Connection State ──────────────────────────────────────────────────────
@@ -230,5 +236,50 @@ export const useSettingsStore = create<SettingsState>((set) => ({
     set({
       vpnSettings: defaultVpnSettings,
       appSettings: defaultAppSettings,
+    }),
+}));
+
+// ─── FaceTime State ───────────────────────────────────────────────────────
+
+interface FaceTimeState {
+  callState: FaceTimeCallState;
+  recentLinks: string[];
+
+  setCallState: (state: FaceTimeCallState) => void;
+  addRecentLink: (link: string) => void;
+  clearRecentLinks: () => void;
+  reset: () => void;
+}
+
+const defaultFaceTimeCallState: FaceTimeCallState = {
+  status: FaceTimeCallStatus.Idle,
+  mediaType: FaceTimeMediaType.AudioVideo,
+  participants: [],
+  localParticipant: null,
+  isMuted: false,
+  isVideoEnabled: true,
+  isSpeakerOn: true,
+  cameraPosition: CameraPosition.Front,
+  callDuration: 0,
+  error: null,
+};
+
+export const useFaceTimeStore = create<FaceTimeState>((set) => ({
+  callState: defaultFaceTimeCallState,
+  recentLinks: [],
+
+  setCallState: (callState) => set({ callState }),
+  addRecentLink: (link) =>
+    set((state) => ({
+      recentLinks: [link, ...state.recentLinks.filter((l) => l !== link)].slice(
+        0,
+        10
+      ),
+    })),
+  clearRecentLinks: () => set({ recentLinks: [] }),
+  reset: () =>
+    set({
+      callState: defaultFaceTimeCallState,
+      recentLinks: [],
     }),
 }));

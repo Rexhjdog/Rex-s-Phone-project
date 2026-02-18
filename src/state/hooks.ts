@@ -8,8 +8,10 @@ import {
   useAccountStore,
   useSettingsStore,
   useRelayStore,
+  useFaceTimeStore,
 } from './store';
 import { ConnectionStatus } from '../types/vpn';
+import { FaceTimeCallStatus } from '../types/facetime';
 import { formatDuration, formatBytes } from '../utils/format';
 
 /**
@@ -184,5 +186,31 @@ export function useRelaySelection() {
     searchQuery,
     setConstraints,
     setSearchQuery,
+  };
+}
+
+/**
+ * Hook for FaceTime call state.
+ */
+export function useFaceTimeCall() {
+  const callState = useFaceTimeStore((s) => s.callState);
+  const recentLinks = useFaceTimeStore((s) => s.recentLinks);
+  const setCallState = useFaceTimeStore((s) => s.setCallState);
+  const addRecentLink = useFaceTimeStore((s) => s.addRecentLink);
+
+  const isInCall =
+    callState.status === FaceTimeCallStatus.Connected ||
+    callState.status === FaceTimeCallStatus.Connecting ||
+    callState.status === FaceTimeCallStatus.Reconnecting;
+
+  const isIdle = callState.status === FaceTimeCallStatus.Idle;
+
+  return {
+    callState,
+    recentLinks,
+    setCallState,
+    addRecentLink,
+    isInCall,
+    isIdle,
   };
 }

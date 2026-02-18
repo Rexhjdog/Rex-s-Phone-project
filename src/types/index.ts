@@ -1,6 +1,7 @@
 export * from './vpn';
 export * from './account';
 export * from './server';
+export * from './facetime';
 
 /**
  * Global app types.
@@ -48,4 +49,5 @@ export type ScreenRoute =
   | 'SplitTunnel'
   | 'VpnSettings'
   | 'DnsSettings'
-  | 'About';
+  | 'About'
+  | 'FaceTimeCall';
